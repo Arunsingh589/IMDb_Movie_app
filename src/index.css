@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+    background-color: black;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+html,
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    /* display: block; */
+    /* box-sizing: border-box; */
+}
+
+@media (forced-colors: active) {
+    .your-element {
+        forced-color-adjust: auto;
+        /* or none, depending on your needs */
+    }
+}
