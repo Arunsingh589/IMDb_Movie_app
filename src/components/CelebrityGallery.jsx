@@ -77,8 +77,8 @@ const CelebrityGallery = () => {
                 </button>
             </div>
             <div className='flex items-center justify-between'>
-                <h3 className="mt-8 text-xl md:text-4xl font-bold text-yellow-400">What to watch</h3>
-                <a href="#" className="text-blue-500 mt-8 md:text-xl items-center flex">Get more recommendations<IoIosArrowForward /> </a>
+                <h3 className="mt-8 text-xl md:text-4xl font-bold text-yellow-400 hidden md:block">What to watch</h3>
+                <a href="#" className="text-blue-500 mt-8 md:text-xl items-center flex ">Get more recommendations<IoIosArrowForward /> </a>
             </div>
         </div>
     );

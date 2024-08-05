@@ -1,71 +1,49 @@
 import React, { useState, useEffect } from 'react';
+import { IoClose } from 'react-icons/io5';
 
-const MovieVideos = ({ movieId = 550 }) => {
-    const [videos, setVideos] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const apiKey = '8ba57bb67fe7f61dc132863540f5aa83'; // Replace with your actual API key
+const VideoPlay = ({ data, close, media_type }) => {
+    const [videoId, setVideoId] = useState(null);
 
     useEffect(() => {
-        const fetchVideos = async () => {
-            const options = {
-                method: 'GET',
-                headers: { accept: 'application/json' },
-            };
-
+        const fetchVideoDetails = async () => {
             try {
-                const response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US&api_key=${apiKey}`, options);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
+                const response = await fetch(`https://api.themoviedb.org/3/${media_type}/${data.id}/videos?api_key=8ba57bb67fe7f61dc132863540f5aa83&language=en-US`);
+                const result = await response.json();
+                const video = result.results.find(v => v.site === 'YouTube');
+                if (video) {
+                    setVideoId(video.key);
                 }
-                const data = await response.json();
-                console.log('Fetched videos:', data);
-                setVideos(data.results);
             } catch (error) {
-                console.error('Error fetching videos:', error);
-                setError(error.message);
-            } finally {
-                setLoading(false);
+                console.error('Error fetching video details:', error);
             }
         };
 
-        fetchVideos();
-    }, [movieId, apiKey]);
-
-    if (loading) {
-        return <div className="text-center py-4">Loading videos...</div>;
-    }
-
-    if (error) {
-        return <div className="text-center py-4 text-red-500">Error: {error}</div>;
-    }
-
-    if (videos.length === 0) {
-        return <div className="text-center py-4">No videos found for this movie.</div>;
-    }
+        fetchVideoDetails();
+    }, [data.id, media_type]);
 
     return (
-        <div className="container mx-auto p-4">
-            <h2 className="text-2xl font-bold mb-4">Movie {movieId} Videos</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {videos.map((video) => (
-                    <div key={video.id} className="border p-4 rounded shadow">
-                        <h3 className="text-xl mb-2">{video.name}</h3>
-                        <div className="aspect-w-16 aspect-h-9">
-                            <iframe
-                                className="w-full h-full"
-                                src={`https://www.youtube.com/embed/${video.key}`}
-                                title={video.name}
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                            ></iframe>
-                        </div>
+        <section className='fixed bg-neutral-700 top-0 right-0 bottom-0 left-0 z-40 bg-opacity-50 flex justify-center items-center'>
+            <div className='bg-black w-full max-h-[80vh] max-w-screen-lg aspect-video rounded relative'>
+                <button onClick={close} className='absolute -right-1 -top-6 text-3xl z-50'>
+                    <IoClose className='text-white' />
+                </button>
+
+                {videoId ? (
+                    <iframe
+                        src={`https://www.youtube.com/embed/${videoId}`}
+                        className='w-full h-full'
+                        allow="autoplay; encrypted-media"
+                        title="Video Player"
+                        frameBorder="0"
+                    />
+                ) : (
+                    <div className='flex justify-center items-center w-full h-full text-white'>
+                        Loading video...
                     </div>
-                ))}
+                )}
             </div>
-        </div>
+        </section>
     );
 };
 
-export default MovieVideos;
+export default VideoPlay;

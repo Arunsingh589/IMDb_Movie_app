@@ -74,7 +74,7 @@ const StreamingSection = () => {
         <div className="bg-black text-white min-h-screen p-2 md:p-16">
             <header className="flex flex-col mb-8">
                 <h1 className="text-2xl md:text-4xl font-bold text-yellow-500 mb-8">Explore what's streaming</h1>
-                <div className="flex justify-start space-x-4 overflow-x-auto w-full">
+                <div className="flex justify-start space-x-4 overflow-x-hidden w-full">
                     {/* Platform icons */}
                     <button className="p-2 rounded-full border-yellow-500 border-2 w-16 h-16  items-center justify-center hidden md:block">All</button>
                     <img src="/prime.jpg" alt="Prime Video" className="w-16 h-16 rounded-full border-gray-500 border-2" />
@@ -100,7 +100,7 @@ const StreamingSection = () => {
 
 const MovieCard = ({ title, rating, imageUrl, platform }) => {
     return (
-        <div className="overflow-x-auto mt-4 flex space-x-4">
+        <div className="overflow-hidden mt-4 flex space-x-4">
             <div className="flex-shrink-0 relative w-48 min-h-[470px] bg-gray-900">
                 <BsBookmarkPlus className='absolute w-10 h-10' />
                 <img

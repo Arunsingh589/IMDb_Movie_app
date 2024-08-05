@@ -3,7 +3,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
 
 
-const Card = ({ movie }) => {
+const SimilarCard = ({ tv }) => {
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         setTimeout(() => {
@@ -25,21 +25,21 @@ const Card = ({ movie }) => {
 
                     </div>
                     :
-                    <Link to={`/movie/${movie.id}`} className="bg-gray-800 relative inline-block hover:border-gray-400 border border-gray-50 cursor-pointer rounded-lg overflow-hidden shadow-lg transform transition duration-500 hover:scale-110">
+                    <Link to={`/tv/${tv.id}`} className="bg-gray-800 relative inline-block hover:border-gray-400 border border-gray-50 cursor-pointer rounded-lg overflow-hidden shadow-lg transform transition duration-500 hover:scale-110">
                         <img
-                            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                            alt={movie.title}
+                            src={`https://image.tmdb.org/t/p/w500${tv.poster_path}`}
+                            alt={tv.title}
                             className="w-full h-auto object-cover"
                         />
                         <div className=" opacity-0 hover:opacity-[1] bg-custom-gradient absolute p-1 bottom-0 h-[290px] flex flex-col w-[100%] justify-end text-white">
-                            <div className="text-white text-[10px] md:text-lg font-semibold">{movie ? movie.original_title : ""} </div>
+                            <div className="text-white text-[10px] md:text-lg font-semibold">{tv ? tv.original_title : ""} </div>
 
                             <div className='text-[.45rem] md:text-[.75rem] mb-1'>
-                                {movie ? movie.release_date : ""}
+                                {tv ? tv.release_date : ""}
                                 <span className=' float-right'>
-                                    {movie ? movie.vote_average : ""} <i className='fas fa-star'></i></span>
+                                    {tv ? tv.vote_average : ""} <i className='fas fa-star'></i></span>
                             </div>
-                            <div className='mb-1 text-[.40rem] md:text-[.75rem]'>{movie ? movie.overview.slice(0, 118) + "...." : ""} </div>
+                            <div className='mb-1 text-[.40rem] md:text-[.75rem]'>{tv ? tv.overview.slice(0, 118) + "...." : ""} </div>
 
                         </div>
                     </Link>
@@ -48,4 +48,4 @@ const Card = ({ movie }) => {
     )
 }
 
-export default Card
+export default SimilarCard
